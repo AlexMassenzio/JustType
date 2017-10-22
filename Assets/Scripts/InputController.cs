@@ -14,7 +14,8 @@ public class InputController : MonoBehaviour {
 	void Start () {
         currentWord = "";
         target = null;
-	}
+        GameObject.FindObjectOfType<InputField>().Select();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,7 +23,7 @@ public class InputController : MonoBehaviour {
         {
             AttemptSwitchTarget();
         }
-	}
+    }
 
     public void AttemptSwitchTarget()
     {
@@ -131,7 +132,7 @@ public class InputController : MonoBehaviour {
         } else
         {
             currentWord = fieldWord;
-            if (currentWord.Length > target.word.Length)
+            if (currentWord.Length > target.word.Length + 1)
                 currentWord = currentWord.Substring(0, target.word.Length);
             target.ReceiveInput(currentWord);
         }
