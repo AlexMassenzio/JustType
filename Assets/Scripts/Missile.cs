@@ -14,26 +14,33 @@ public class Missile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        assignedWord = FindObjectOfType<DictonaryManager>().LoadNextWord();
+        assignedWord = FindObjectOfType<DictionaryManager>().LoadNextWord();
+        GetComponentInChildren<InputReceiver>().SetWord(assignedWord);
+
+        GetComponentInChildren<InputReceiver>().ID = FindObjectOfType<DictionaryManager>().LoadNextID();
 
         GameObject[] bases = GameObject.FindGameObjectsWithTag("Base");
 
         if (bases.Length != 0)
         {
             targetedBase = bases[Random.Range(0, bases.Length - 1)];
-
-            var sequence = LeanTween.sequence();
-            sequence.append(LeanTween.move(gameObject, targetedBase.transform.position, travelTime));
-            sequence.append(() =>
-            {
-                Destroy(targetedBase);
-                Destroy(gameObject);
-            });
+            StartCoroutine(SendMissile());
         }
         else
         {
             Debug.LogError("No bases found! Deleting self", this);
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator SendMissile()
+    {
+        LeanTween.move(gameObject, targetedBase.transform.position, travelTime);
+
+        yield return new WaitForSeconds(travelTime);
+
+        this.GetComponentInChildren<InputReceiver>().GameDestroy();
+        Destroy(targetedBase);
+        Destroy(gameObject);
     }
 }

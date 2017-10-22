@@ -15,10 +15,10 @@ public class InputReceiver : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         lockedOn = null;
-        setWord(word);
+        //SetWord(word);
 	}
 
-    public void setWord(string wordToSet)
+    public void SetWord(string wordToSet)
     {
         word = wordToSet;
         baseText.text = word;
@@ -51,6 +51,7 @@ public class InputReceiver : MonoBehaviour {
         lockedOn.DestroyTarget();
 
         //TODO: send message to owning missile or something
+        GameObject.Destroy(transform.parent.gameObject);
 
         GameObject.Destroy(this.gameObject);
     }
@@ -73,7 +74,7 @@ public class InputReceiver : MonoBehaviour {
         //todo
         progressText.text = progress;
 
-        bool soFarSoGood = progress.Length > 0 && progress.Length <= word.Length && progress[progress.Length - 1] == word[progress.Length - 1];
+        bool soFarSoGood = progress.Length > 0 && progress.Length <= word.Length && word.StartsWith(progress);
         if (soFarSoGood)
         {
             progressText.color = Color.green;
