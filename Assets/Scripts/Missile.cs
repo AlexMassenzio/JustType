@@ -9,10 +9,12 @@ public class Missile : MonoBehaviour {
     [SerializeField]
     private float travelTime = 10f;
 
+    private Transform trans;
     private GameObject targetedBase;
 
 	// Use this for initialization
 	void Start () {
+        trans = GetComponent<Transform>();
 
         assignedWord = FindObjectOfType<DictionaryManager>().LoadNextWord();
         GetComponentInChildren<InputReceiver>().SetWord(assignedWord);
