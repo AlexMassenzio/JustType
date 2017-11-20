@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 114918299191050804}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f095c8b693bee04f8d8e31a917680fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  travelTime: 4
+  travelTime: 5.5
 --- !u!198 &198983321623258272
 ParticleSystem:
   m_ObjectHideFlags: 1

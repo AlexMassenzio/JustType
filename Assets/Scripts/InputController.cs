@@ -134,7 +134,12 @@ public class InputController : MonoBehaviour {
             currentWord = fieldWord;
             if (currentWord.Length > target.word.Length + 1)
                 currentWord = currentWord.Substring(0, target.word.Length);
-            target.ReceiveInput(currentWord);
+            bool soFarSoGood = target.ReceiveInput(currentWord);
+            if (!soFarSoGood)
+            {
+                target.Backspace();
+                currentWord = currentWord.Substring(0, currentWord.Length - 1);
+            }
         }
 
         this.GetComponent<InputField>().text = currentWord;

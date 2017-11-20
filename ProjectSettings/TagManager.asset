@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Base
+  - WPM
+  - Missile
   layers:
   - Default
   - TransparentFX
