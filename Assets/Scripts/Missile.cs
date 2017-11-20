@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : MonoBehaviour {
+public class Missile : MonoBehaviour
+{
 
     private string assignedWord;
 
@@ -12,8 +13,9 @@ public class Missile : MonoBehaviour {
     private Transform trans;
     private GameObject targetedBase;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         trans = GetComponent<Transform>();
 
         assignedWord = FindObjectOfType<DictionaryManager>().LoadNextWord();
@@ -33,6 +35,10 @@ public class Missile : MonoBehaviour {
             Debug.LogError("No bases found! Deleting self", this);
             Destroy(this.gameObject);
         }
+
+        Vector3 diff = targetedBase.transform.position - trans.position;
+        float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg - 90f;
+        trans.Find("Rocket").eulerAngles = new Vector3(0, 0, angle);
     }
 
     IEnumerator SendMissile()
