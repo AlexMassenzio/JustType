@@ -9,13 +9,29 @@ public class MissileSpawner : MonoBehaviour {
     private DictionaryManager dm;
     public int numberOfMissiles = 25;
 
+	private bool submittedForm;
+
 	// Use this for initialization
 	void Start () {
         dm = FindObjectOfType<DictionaryManager>();
 
         StartCoroutine(Spawner());
+
+		submittedForm = false;
 	}
-	
+
+	void Update()
+	{
+		if((numberOfMissiles <= 0 && GameObject.FindGameObjectsWithTag("Missile").Length <= 0) || GameObject.FindGameObjectsWithTag("Base").Length <= 0)
+		{
+			if(!submittedForm)
+			{
+				FindObjectOfType<SubmitFormOnline>().Activate();
+				submittedForm = true;
+			}
+		}
+	}
+
 	IEnumerator Spawner()
     {
         while(!dm.IsEmpty() && numberOfMissiles > 0)
