@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
+    public Transform ExplosionSystem;
 
     private string assignedWord;
 
@@ -48,7 +49,13 @@ public class Missile : MonoBehaviour
         yield return new WaitForSeconds(travelTime);
 
         this.GetComponentInChildren<InputReceiver>().GameDestroy();
-        Destroy(targetedBase);
+        
+        Transform explosionTrans = Instantiate<Transform>(ExplosionSystem);
+        explosionTrans.position = transform.position;
         Destroy(gameObject);
+        if (targetedBase!=null)
+        {
+            Destroy(targetedBase);
+        }
     }
 }
