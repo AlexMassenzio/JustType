@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MissileSpawner : MonoBehaviour {
 
+    public GameObject EndGUI;
+
     public float spawnRate = 2f;
     public GameObject missile;
     private DictionaryManager dm;
@@ -15,9 +17,7 @@ public class MissileSpawner : MonoBehaviour {
 	void Start () {
         dm = FindObjectOfType<DictionaryManager>();
 
-        StartCoroutine(Spawner());
-
-		submittedForm = false;
+        StartSpawner();
 	}
 
 	void Update()
@@ -28,9 +28,16 @@ public class MissileSpawner : MonoBehaviour {
 			{
 				FindObjectOfType<SubmitFormOnline>().Activate();
 				submittedForm = true;
+                EndGUI.SetActive(true);
 			}
 		}
 	}
+
+    public void StartSpawner()
+    {
+        StartCoroutine(Spawner());
+        submittedForm = false;
+    }
 
 	IEnumerator Spawner()
     {
